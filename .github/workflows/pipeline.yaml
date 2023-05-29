@@ -43,8 +43,5 @@ jobs:
         cluster-name: ${{ secrets.AZ_AKS }}
 
     - name: Deploy to AKS
-      uses: azure/k8s-deploy@v1
-      with:
-        manifests: |
-          kubernetes/deployment.yaml
-
+      run: |
+        kubectl apply -f kubernetes/deployment.yaml
