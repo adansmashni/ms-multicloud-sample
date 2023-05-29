@@ -43,5 +43,3 @@ spec:
             - containerPort: 5000
       imagePullSecrets:
         - name: dockerhub-credentials
-
-docker pull adansmashni/tcc-senai:latest
