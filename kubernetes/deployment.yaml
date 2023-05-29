@@ -24,7 +24,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tcc-senai-deployment
+  name: tcc-senai
   namespace: tcc-senai
 spec:
   replicas: 1
@@ -44,3 +44,4 @@ spec:
       imagePullSecrets:
         - name: docker-credentials
 
+docker pull adansmashni/tcc-senai:latest
