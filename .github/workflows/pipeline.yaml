@@ -23,17 +23,24 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    - name: Build and Push Docker Image
+      run: |
+        docker build -t ${{ secrets.DOCKERHUB_USER }}/tcc-senai:latest .
+        docker login -u ${{ secrets.DOCKERHUB_USER }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+        docker push ${{ secrets.DOCKERHUB_USER }}/tcc-senai:latest
+
     - name: Login to Azure
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
+        enable-AzPSSession: true
 
     - name: Azure AKS Set Context
       uses: azure/aks-set-context@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-        resource-group: <nome_do_resource_group>
-        cluster-name: <nome_do_cluster_aks>
+        resource-group: ${{ secrets.AZ_RESOURCE_GROUP }}
+        cluster-name: ${{ secrets.AZ_AKS }}
 
     - name: Deploy to AKS
       uses: azure/k8s-deploy@v1
@@ -41,4 +48,4 @@ jobs:
         manifests: |
           kubernetes/deployment.yaml
         images: |
-          <seu_docker_registry>/<seu_docker_repository>:latest
+          ${{ secrets.DOCKERHUB_USER }}/tcc-senai:latest

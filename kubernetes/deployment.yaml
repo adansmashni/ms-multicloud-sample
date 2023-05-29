@@ -1,0 +1,43 @@
+# Namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tcc-senai
+
+---
+# Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: tcc-senai-svc
+  namespace: tcc-senai
+spec:
+  selector:
+    app: tcc-senai
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+
+---
+# Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tcc-senai-deployment
+  namespace: tcc-senai
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tcc-senai
+  template:
+    metadata:
+      labels:
+        app: tcc-senai
+    spec:
+      containers:
+        - name: tcc-senai
+          image: <sua-imagem-do-docker-hub>:latest
+          ports:
+            - containerPort: 5000
