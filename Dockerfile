@@ -5,6 +5,7 @@ FROM python:3.9-slim
 WORKDIR /app
 
 # Copia os arquivos de código-fonte para o diretório de trabalho
+COPY requirements.txt /app
 COPY src /app
 
 # Define as variáveis de ambiente
