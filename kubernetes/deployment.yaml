@@ -41,3 +41,6 @@ spec:
           image: ${{ secrets.DOCKERHUB_USER }}/tcc-senai:latest
           ports:
             - containerPort: 5000
+      imagePullSecrets:
+        - name: docker-credentials
+
