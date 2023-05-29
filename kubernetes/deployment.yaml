@@ -38,7 +38,7 @@ spec:
     spec:
       containers:
         - name: tcc-senai
-          image: ${{ secrets.DOCKERHUB_USER }}/tcc-senai:latest
+          image: adansmashni/tcc-senai:latest
           ports:
             - containerPort: 5000
       imagePullSecrets:
