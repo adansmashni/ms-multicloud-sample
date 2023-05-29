@@ -38,6 +38,6 @@ spec:
     spec:
       containers:
         - name: tcc-senai
-          image: <sua-imagem-do-docker-hub>:latest
+          image: ${{ secrets.DOCKERHUB_USER }}/tcc-senai:latest
           ports:
             - containerPort: 5000

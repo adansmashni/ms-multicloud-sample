@@ -47,5 +47,4 @@ jobs:
       with:
         manifests: |
           kubernetes/deployment.yaml
-        images: |
-          ${{ secrets.DOCKERHUB_USER }}/tcc-senai:latest
+
