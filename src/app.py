@@ -1,5 +1,8 @@
 from flask import Flask, render_template
 import dapr.clients
+import os
+
+provedor = os.environ.get('PROVEDOR')
 
 app = Flask(__name__)
 dapr_client = dapr.clients.DaprClient()
