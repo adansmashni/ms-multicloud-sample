@@ -2,15 +2,14 @@ from flask import Flask, render_template
 import dapr.clients
 import os
 
-provedor = os.environ.get('PROVEDOR')
-print(f'provedor {provedor}')
+
 
 app = Flask(__name__)
 dapr_client = dapr.clients.DaprClient()
 
 def executar_sql(declaracao_sql, *parametros):
     resposta = dapr_client.invoke_binding(
-        name="nome_do_binding_postgresql",
+        name="postgres-db",
         operation="exec",
         data={
             "query": declaracao_sql,
@@ -21,7 +20,8 @@ def executar_sql(declaracao_sql, *parametros):
 
 @app.route("/")
 def home():
-    provedor = "provedor_a"
+    provedor = os.environ.get('PROVEDOR')
+    print(f'provedor {provedor}')
     resultado = executar_sql("SELECT * FROM providers WHERE nome_provedor = $1", provedor)
     return render_template("index.html", resultado=resultado)
 
