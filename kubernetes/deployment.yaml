@@ -39,6 +39,7 @@ spec:
       containers:
         - name: tcc-senai
           image: adansmashni/tcc-senai:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 5000
           envFrom:
