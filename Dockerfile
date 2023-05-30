@@ -20,5 +20,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 5000
 
 # Comando para executar a aplicação Flask
-CMD ["flask", "run"]
+CMD ["flask", "run", "--debug"]
 
