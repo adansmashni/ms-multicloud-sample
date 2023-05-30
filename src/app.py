@@ -3,6 +3,7 @@ import dapr.clients
 import os
 
 provedor = os.environ.get('PROVEDOR')
+print(f'provedor {provedor}')
 
 app = Flask(__name__)
 dapr_client = dapr.clients.DaprClient()
