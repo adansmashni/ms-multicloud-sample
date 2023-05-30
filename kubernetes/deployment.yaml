@@ -41,5 +41,8 @@ spec:
           image: adansmashni/tcc-senai:latest
           ports:
             - containerPort: 5000
+          envFrom:
+            - configMapRef:
+                name: tcc-senai-cm
       imagePullSecrets:
         - name: dockerhub-credentials
