@@ -21,7 +21,6 @@ def executar_sql(declaracao_sql, *parametros):
 @app.route("/")
 def home():
     provedor = os.environ.get('PROVEDOR')
-    print(f'provedor {provedor}')
     resultado = executar_sql("SELECT * FROM providers WHERE nome_provedor = $1", provedor)
     return render_template("index.html", resultado=resultado)
 
