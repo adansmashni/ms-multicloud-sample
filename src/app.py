@@ -9,7 +9,7 @@ dapr_client = dapr.clients.DaprClient()
 
 def executar_sql(declaracao_sql, *parametros):
     resposta = dapr_client.invoke_binding(
-        name="postgres-db",
+        binding_name="postgres-db",
         operation="exec",
         data={
             "query": declaracao_sql,
