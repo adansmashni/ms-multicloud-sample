@@ -24,5 +24,5 @@ EXPOSE 5000
 
 # Comando para executar a aplicação Flask
 #CMD ["flask", "run", "--debug"]
-CMD ["dapr", "run", "--app-id", "myapp", "--app-port", "5000", "flask", "run", "--host", "0.0.0.0"]
+CMD ["dapr", "run", "--app-id", "myapp", "--app-port", "5000", "--", "flask", "run", "--host", "0.0.0.0", "--debug"]
 
