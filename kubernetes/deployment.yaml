@@ -36,6 +36,11 @@ spec:
     metadata:
       labels:
         app: tcc-senai
+      annotations:
+        dapr.io/app-id: "tccapp"
+        dapr.io/app-port: "5000"
+        dapr.io/config: "tcc-config"
+        dapr.io/enabled: "true"
     spec:
       containers:
         - name: tcc-senai
