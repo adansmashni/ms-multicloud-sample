@@ -3,7 +3,7 @@ FROM python:3.9-slim
 
 RUN apt-get update
 RUN apt-get install telnet netcat iputils-ping curl -y
-RUN curl -fsSL https://raw.githubusercontent.com/dapr/cli/master/install/install.sh | /bin/bash
+#RUN curl -fsSL https://raw.githubusercontent.com/dapr/cli/master/install/install.sh | /bin/bash
 # Define o diretório de trabalho no contêiner
 WORKDIR /app
 
@@ -23,6 +23,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 5000
 
 # Comando para executar a aplicação Flask
-#CMD ["flask", "run", "--debug"]
-CMD ["dapr", "run", "--app-id", "myapp", "--app-port", "5000", "--", "flask", "run", "--host", "0.0.0.0", "--debug"]
+CMD ["flask", "run", "--debug"]
+#CMD ["dapr", "run", "--app-id", "myapp", "--app-port", "5000", "--", "flask", "run", "--host", "0.0.0.0", "--debug"]
 
