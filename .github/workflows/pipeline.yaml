@@ -45,3 +45,4 @@ jobs:
     - name: Deploy to AKS
       run: |
         kubectl apply -f kubernetes/deployment.yaml
+        kubectl rollout restart deployment tcc-senai 
