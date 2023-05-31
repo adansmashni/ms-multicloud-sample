@@ -4,6 +4,7 @@ kind: Namespace
 metadata:
   name: tcc-senai
 
+
 ---
 # Service
 apiVersion: v1
