@@ -18,7 +18,7 @@ def executar_sql(declaracao_sql, *parametros):
 
 def sql_output(provedor):
     with dapr_client:
-        sqlCmd = ('SELECT * FROM providers WHERE nome_provedor = $1', provedor)
+        sqlCmd = ('SELECT * FROM providers WHERE nome_provedor = %s', provedor)
         payload = {'sql': sqlCmd}
 
         print(sqlCmd, flush=True)
