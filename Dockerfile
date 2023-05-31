@@ -1,6 +1,8 @@
 # Define a imagem base
 FROM python:3.9-slim
 
+RUN apt-get update
+RUN apt-get install telnet nc -y
 # Define o diretório de trabalho no contêiner
 WORKDIR /app
 
