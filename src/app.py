@@ -37,7 +37,7 @@ def executar_sql_query(declaracao_sql):
     resposta = dapr_client.invoke_binding(
         binding_name="postgres-db",
         operation="query",
-        metada={ "sql": declaracao_sql }
+        metadata={ "sql": declaracao_sql }
     )
     return resposta
 
