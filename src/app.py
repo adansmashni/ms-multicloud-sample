@@ -3,8 +3,6 @@ import dapr.clients
 import os
 import requests
 
-a = requests.get()
-
 app = Flask(__name__)
 dapr_client = dapr.clients.DaprClient()
 
