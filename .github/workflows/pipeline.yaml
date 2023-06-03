@@ -1,4 +1,4 @@
-name: CI/CD
+name: Pipeline Azure
 
 on:
   push:
@@ -44,5 +44,12 @@ jobs:
 
     - name: Deploy to AKS
       run: |
+        kubectl create ns tcc-senai
+        kubectl create secret docker-registry dockerhub-credentials \
+          --docker-server=https://index.docker.io/v1/ \
+          --docker-username=${{ secrets.DOCKERHUB_USER }} \
+          --docker-password=${{ secrets.DOCKERHUB_TOKEN }} \
+          --docker-email=$DOCKERHUB_EMAIL \
+          --namespace=tcc-senai
         kubectl apply -f kubernetes/deployment.yaml
         kubectl rollout restart deployment tcc-senai -n tcc-senai

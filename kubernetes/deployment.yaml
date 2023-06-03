@@ -1,9 +1,11 @@
-# Namespace
+# ConfigMap
 apiVersion: v1
-kind: Namespace
+kind: ConfigMap
 metadata:
-  name: tcc-senai
-
+  name: tcc-senai-cm
+  namespace: tcc-senai
+data:
+  PROVEDOR: Azure
 
 ---
 # Service
