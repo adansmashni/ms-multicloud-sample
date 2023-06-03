@@ -34,11 +34,12 @@ def sql_output(provedor):
             raise SystemExit(e)
 
 def executar_sql_query(provedor):
-    sqlcmd = f'"SELECT * FROM providers WHERE nome_provedor = {provedor}"'
+    sqlcmd_ = f'"SELECT * FROM providers WHERE nome_provedor = \'{provedor}\'"'
+    sqlcmd = '\'{ "sql": ' + sqlcmd_ + ' }\''
     resposta = dapr_client.invoke_binding(
         binding_name="postgres-db",
         operation="query",
-        data={ "sql": {sqlcmd} }
+        data=sqlcmd
     )
     return resposta
 
