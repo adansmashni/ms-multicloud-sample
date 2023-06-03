@@ -1,6 +1,9 @@
 from flask import Flask, render_template
 import dapr.clients
 import os
+import requests
+
+a = requests.get()
 
 app = Flask(__name__)
 dapr_client = dapr.clients.DaprClient()
@@ -32,21 +35,26 @@ def sql_output(provedor):
             print(e, flush=True)
             raise SystemExit(e)
 
-
-def executar_sql_query(declaracao_sql):
+def executar_sql_query(provedor):
+    sqlcmd = f'"SELECT * FROM providers WHERE nome_provedor = {provedor}"'
     resposta = dapr_client.invoke_binding(
         binding_name="postgres-db",
         operation="query",
-        metadata={ "sql": declaracao_sql }
+        data=f'{ "sql": {sqlcmd} }'
     )
     return resposta
+
+   
+
 
 @app.route("/")
 def home():
     meu_provedor = os.environ.get('PROVEDOR')
     #resultado = sql_output(meu_provedor)
     #resultado = executar_sql("SELECT * FROM providers WHERE nome_provedor = $1", provedor)
-    resultado = executar_sql_query("SELECT * FROM providers WHERE nome_provedor = 'Azure'")
+    resultado = executar_sql_query(meu_provedor)
+    print(type(resultado))
+    print(resultado)
     return render_template("index.html", resultado=resultado)
 
 if __name__ == "__main__":
