@@ -33,12 +33,20 @@ def sql_output(provedor):
             raise SystemExit(e)
 
 
+def executar_sql_query(declaracao_sql):
+    resposta = dapr_client.invoke_binding(
+        binding_name="postgres-db",
+        operation="query",
+        metada={ "sql": declaracao_sql }
+    )
+    return resposta
 
 @app.route("/")
 def home():
     meu_provedor = os.environ.get('PROVEDOR')
-    resultado = sql_output(meu_provedor)
+    #resultado = sql_output(meu_provedor)
     #resultado = executar_sql("SELECT * FROM providers WHERE nome_provedor = $1", provedor)
+    resultado = executar_sql_query("SELECT * FROM providers WHERE nome_provedor = 'Azure'")
     return render_template("index.html", resultado=resultado)
 
 if __name__ == "__main__":
