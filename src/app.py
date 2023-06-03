@@ -38,7 +38,7 @@ def executar_sql_query(provedor):
     resposta = dapr_client.invoke_binding(
         binding_name="postgres-db",
         operation="query",
-        data=f'{ "sql": {sqlcmd} }'
+        data={ "sql": {sqlcmd} }
     )
     return resposta
 
