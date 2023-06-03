@@ -33,18 +33,24 @@ def sql_output(provedor):
             print(e, flush=True)
             raise SystemExit(e)
 
+#binding_name: str,
+#    operation: str,
+#    data: bytes | str = '',
+#    binding_metadata: Dict[str, str] = {},
+#    metadata: MetadataTuple | None = Non
+
 def executar_sql_query(provedor):
     sqlcmd_ = f'"SELECT * FROM providers WHERE nome_provedor = \'{provedor}\'"'
     sqlcmd = '\'{ "sql": ' + sqlcmd_ + ' }\''
     resposta = dapr_client.invoke_binding(
         binding_name="postgres-db",
         operation="query",
-        metadata=sqlcmd
+        metadata= {"sql": "SELECT * FROM providers" }
     )
     return resposta
 
    
-
+dapr_client.invoke_bindin
 
 @app.route("/")
 def home():
