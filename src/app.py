@@ -38,7 +38,7 @@ def sql_output(provedor):
 def home():
     meu_provedor = os.environ.get('PROVEDOR')
     #resultado = sql_output(meu_provedor)
-    resultado = executar_sql("SELECT companhia FROM providers WHERE nome_provedor=%1", meu_provedor)
+    resultado = executar_sql("SELECT companhia FROM providers WHERE nome_provedor= $1", meu_provedor)
     return render_template("index.html", resultado=resultado)
 
 if __name__ == "__main__":
