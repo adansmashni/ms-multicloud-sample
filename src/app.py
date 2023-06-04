@@ -14,7 +14,7 @@ def sql_output(provedor):
             resp_ = dapr_client.invoke_binding(binding_name="postgres-db", operation='query', binding_metadata=payload, data='')
             resp_dict = json.loads(resp_.data.decode('utf-8'))
             resp = [f'{resp_dict[0][0]} é a companhia proprietária do provedor de cloud {provedor} !']          
-            return [resp]
+            return [resp[0]]
         except Exception as e:
             print(e, flush=True)
             raise SystemExit(e)
