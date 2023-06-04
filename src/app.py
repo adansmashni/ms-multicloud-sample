@@ -29,7 +29,9 @@ def sql_output(provedor):
             # Insert order using Dapr output binding via HTTP Post
             resp = dapr_client.invoke_binding(binding_name="postgres-db", operation='query',
                                     binding_metadata=payload, data='')
-            return resp
+            a = []
+            a.append(resp)
+            return a
         except Exception as e:
             print(e, flush=True)
             raise SystemExit(e)
