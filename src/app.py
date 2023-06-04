@@ -2,8 +2,11 @@ from flask import Flask, render_template
 import dapr.clients
 import os
 import json
+import logging
+
 
 app = Flask(__name__)
+logging.basicConfig(level=logging.DEBUG)
 dapr_client = dapr.clients.DaprClient()
 
 def executar_sql(declaracao_sql, *parametros):
@@ -29,6 +32,7 @@ def sql_output(provedor):
             # Insert order using Dapr output binding via HTTP Post
             resp = dapr_client.invoke_binding(binding_name="postgres-db", operation='query',
                                     binding_metadata=payload, data='')
+            app.logger.info(f'{resp}')
             a = []
             a.append(resp)
             return a
