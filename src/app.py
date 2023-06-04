@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 import dapr.clients
 import os
-import requests
+import json
 
 app = Flask(__name__)
 dapr_client = dapr.clients.DaprClient()
@@ -40,16 +40,12 @@ def sql_output(provedor):
 #    metadata: MetadataTuple | None = Non
 
 def executar_sql_query(provedor):
-    sqlcmd_ = f'"SELECT * FROM providers WHERE nome_provedor = \'{provedor}\'"'
-    sqlcmd = '\'{ "sql": ' + sqlcmd_ + ' }\''
+    sqlcmd = f'"SELECT * FROM providers WHERE nome_provedor = \'{provedor}\'"'
+    json_data = {"sql": sqlcmd}
     resposta = dapr_client.invoke_binding(
         binding_name="postgres-db",
         operation= "query",
-        data={ 
-            "metadata": {
-                "sql": "SELECT * FROM providers"
-            }
-        }
+        metadata= json.dumps(json_data)
     )
     return resposta
 
