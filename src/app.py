@@ -32,7 +32,7 @@ def sql_output(provedor):
             # Insert order using Dapr output binding via HTTP Post
             resp = dapr_client.invoke_binding(binding_name="postgres-db", operation='query',
                                     binding_metadata=payload, data='')
-            app.logger.info(f'{resp}')
+            app.logger.info(f'{resp.data}')
             a = []
             a.append(resp)
             return a
