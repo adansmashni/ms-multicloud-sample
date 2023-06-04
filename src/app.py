@@ -34,7 +34,8 @@ def sql_output(provedor):
                                     binding_metadata=payload, data='')
             app.logger.info(f'{resp.data}')
             a = []
-            a.append(resp)
+            res_dict = json.loads(resp.data.decode('utf-8'))
+            a.append(res_dict)
             return a
         except Exception as e:
             print(e, flush=True)
