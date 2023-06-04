@@ -54,8 +54,6 @@ def executar_sql_query(provedor):
     return resposta
 
    
-dapr_client.invoke_bindin
-
 @app.route("/")
 def home():
     meu_provedor = os.environ.get('PROVEDOR')
