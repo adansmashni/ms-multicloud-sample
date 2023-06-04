@@ -22,13 +22,13 @@ def executar_sql(declaracao_sql, *parametros):
 
 def sql_output(provedor):
     with dapr_client:
-        sqlCmd = (f"SELECT * FROM providers WHERE nome_provedor='{provedor}'")
+        sqlCmd = (f"SELECT companhia FROM providers WHERE nome_provedor='{provedor}'")
         payload = {'sql': sqlCmd}
         try:
-            resp = dapr_client.invoke_binding(binding_name="postgres-db", operation='query', binding_metadata=payload, data='')
-            resp_dict = json.loads(resp.data.decode('utf-8'))
-            logging.info(resp_dict)
-            return ['teste']
+            resp_ = dapr_client.invoke_binding(binding_name="postgres-db", operation='query', binding_metadata=payload, data='')
+            resp_dict = json.loads(resp_.data.decode('utf-8'))
+            resp = [f'{resp_dict[0]} é a companhia proprietária do provedor de cloud {provedor} !']          
+            return [resp]
         except Exception as e:
             print(e, flush=True)
             raise SystemExit(e)
