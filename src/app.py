@@ -44,8 +44,8 @@ def executar_sql_query(provedor):
     sqlcmd = '\'{ "sql": ' + sqlcmd_ + ' }\''
     resposta = dapr_client.invoke_binding(
         binding_name="postgres-db",
+        operation= "query",
         data={ 
-            "operation": "query",
             "metadata": {
                 "sql": "SELECT * FROM providers"
             }
