@@ -23,20 +23,12 @@ def executar_sql(declaracao_sql, *parametros):
 def sql_output(provedor):
     with dapr_client:
         sqlCmd = (f"SELECT * FROM providers WHERE nome_provedor='{provedor}'")
-        #sqlCmd = (f'SELECT * FROM providers WHERE nome_provedor')
         payload = {'sql': sqlCmd}
-
-        print(sqlCmd, flush=True)
-
         try:
-            # Insert order using Dapr output binding via HTTP Post
-            resp = dapr_client.invoke_binding(binding_name="postgres-db", operation='query',
-                                    binding_metadata=payload, data='')
-            app.logger.info(f'{resp.data}')
-            a = []
-            res_dict = json.loads(resp.data.decode('utf-8'))
-            a.append(res_dict)
-            return a
+            resp = dapr_client.invoke_binding(binding_name="postgres-db", operation='query', binding_metadata=payload, data='')
+            resp_dict = json.loads(resp.data.decode('utf-8'))
+            logging.info(resp_dict)
+            return ['teste']
         except Exception as e:
             print(e, flush=True)
             raise SystemExit(e)
