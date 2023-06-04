@@ -6,10 +6,9 @@ import logging
 
 
 app = Flask(__name__)
-logging.basicConfig(level=logging.DEBUG)
-dapr_client = dapr.clients.DaprClient()
 
 def executar_sql(declaracao_sql, *parametros):
+    dapr_client = dapr.clients.DaprClient()
     resposta = dapr_client.invoke_binding(
         binding_name="postgres-db",
         operation="exec",
@@ -18,9 +17,10 @@ def executar_sql(declaracao_sql, *parametros):
             "params": parametros
         }
     )
-    return resposta.json()
+    return resposta.data.json()
 
 def sql_output(provedor):
+    dapr_client = dapr.clients.DaprClient()
     with dapr_client:
         sqlCmd = (f"SELECT companhia FROM providers WHERE nome_provedor='{provedor}'")
         payload = {'sql': sqlCmd}
@@ -33,31 +33,12 @@ def sql_output(provedor):
             print(e, flush=True)
             raise SystemExit(e)
 
-#binding_name: str,
-#    operation: str,
-#    data: bytes | str = '',
-#    binding_metadata: Dict[str, str] = {},
-#    metadata: MetadataTuple | None = Non
-
-def executar_sql_query(provedor):
-    #sqlcmd = f'"SELECT * FROM providers WHERE nome_provedor = \'{provedor}\'"'
-    json_data = {"sql": "SELECT * FROM providers"}
-    resposta = dapr_client.invoke_binding(
-        binding_name="postgres-db",
-        operation= "query",
-        metadata= json.dumps(json_data)
-    )
-    return resposta
-
-   
+  
 @app.route("/")
 def home():
     meu_provedor = os.environ.get('PROVEDOR')
-    resultado = sql_output(meu_provedor)
-    #resultado = executar_sql("SELECT * FROM providers WHERE nome_provedor = $1", provedor)
-    #resultado = executar_sql_query(meu_provedor)
-    print(type(resultado))
-    print(resultado)
+    #resultado = sql_output(meu_provedor)
+    resultado = executar_sql("SELECT companhia FROM providers WHERE nome_provedor=%1", meu_provedor)
     return render_template("index.html", resultado=resultado)
 
 if __name__ == "__main__":
