@@ -26,7 +26,7 @@ def sql_output(provedor):
 
         try:
             # Insert order using Dapr output binding via HTTP Post
-            resp = dapr_client.invoke_binding(binding_name="postgres-db", operation='exec',
+            resp = dapr_client.invoke_binding(binding_name="postgres-db", operation='query',
                                     binding_metadata=payload, data='')
             return resp
         except Exception as e:
@@ -40,8 +40,8 @@ def sql_output(provedor):
 #    metadata: MetadataTuple | None = Non
 
 def executar_sql_query(provedor):
-    sqlcmd = f'"SELECT * FROM providers WHERE nome_provedor = \'{provedor}\'"'
-    json_data = {"sql": sqlcmd}
+    #sqlcmd = f'"SELECT * FROM providers WHERE nome_provedor = \'{provedor}\'"'
+    json_data = {"sql": "SELECT * FROM providers"}
     resposta = dapr_client.invoke_binding(
         binding_name="postgres-db",
         operation= "query",
@@ -53,9 +53,9 @@ def executar_sql_query(provedor):
 @app.route("/")
 def home():
     meu_provedor = os.environ.get('PROVEDOR')
-    #resultado = sql_output(meu_provedor)
+    resultado = sql_output(meu_provedor)
     #resultado = executar_sql("SELECT * FROM providers WHERE nome_provedor = $1", provedor)
-    resultado = executar_sql_query(meu_provedor)
+    #resultado = executar_sql_query(meu_provedor)
     print(type(resultado))
     print(resultado)
     return render_template("index.html", resultado=resultado)
