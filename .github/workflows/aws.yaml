@@ -23,7 +23,7 @@ jobs:
 
     - name: AWS EKS Set Context
       run: |
-        aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name my-cluster ${{ secrets.AWS_EKS }}
+        aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name ${{ secrets.AWS_EKS }}
 
     - name: Create NS tcc-senai
       continue-on-error: true
