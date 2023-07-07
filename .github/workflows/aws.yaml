@@ -13,6 +13,12 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+      
+    - name: Install AWS CLI
+      run: |
+        curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+        unzip awscliv2.zip
+        ./aws/install
 
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -22,10 +28,8 @@ jobs:
         aws-region: ${{ secrets.AWS_REGION }}
 
     - name: AWS EKS Set Context
-      uses: aws-actions/eks-kubectl@v1
-      with:
-        cluster-name: ${{ secrets.AWS_EKS }}
-        kubectl-command: config use-context ${{ secrets.AWS_EKS }}
+      run: |
+        aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name my-cluster ${{ secrets.AWS_EKS }}
 
     - name: Create NS tcc-senai
       continue-on-error: true
