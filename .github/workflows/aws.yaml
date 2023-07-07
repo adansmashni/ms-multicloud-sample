@@ -24,8 +24,8 @@ jobs:
    - name: AWS EKS Set Context
       uses: aws-actions/eks-kubectl@v1
       with:
-        cluster-name: ${{ secrets.AWS_CLUSTER_NAME }}
-        kubectl-command: config use-context ${{ secrets.AWS_CLUSTER_NAME }}
+        cluster-name: ${{ secrets.AWS_EKS }}
+        kubectl-command: config use-context ${{ secrets.AWS_EKS }}
 
     - name: Create NS tcc-senai
       continue-on-error: true
