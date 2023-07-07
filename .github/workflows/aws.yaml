@@ -1,0 +1,48 @@
+name: Deploy AWS
+
+on:
+  workflow_run:
+    workflows: ["Build Pipeline"]
+    types: 
+      - completed
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+   - name: AWS EKS Set Context
+      uses: aws-actions/eks-kubectl@v1
+      with:
+        cluster-name: ${{ secrets.AWS_CLUSTER_NAME }}
+        kubectl-command: config use-context ${{ secrets.AWS_CLUSTER_NAME }}
+
+    - name: Create NS tcc-senai
+      continue-on-error: true
+      run: |
+        kubectl create ns tcc-senai
+
+    - name: Create DockerHub Credentials
+      continue-on-error: true
+      run: |
+        kubectl create secret docker-registry dockerhub-credentials \
+          --docker-server=https://index.docker.io/v1/ \
+          --docker-username=${{ secrets.DOCKERHUB_USER }} \
+          --docker-password=${{ secrets.DOCKERHUB_TOKEN }} \
+          --docker-email=$DOCKERHUB_EMAIL \
+          --namespace=tcc-senai
+
+    - name: Deploy to AKS
+      run: |
+        kubectl apply -f kubernetes/deployment.yaml
+        kubectl rollout restart deployment tcc-senai -n tcc-senai
