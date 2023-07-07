@@ -21,7 +21,7 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ secrets.AWS_REGION }}
 
-   - name: AWS EKS Set Context
+    - name: AWS EKS Set Context
       uses: aws-actions/eks-kubectl@v1
       with:
         cluster-name: ${{ secrets.AWS_EKS }}
