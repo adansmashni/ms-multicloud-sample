@@ -2,7 +2,7 @@
 FROM python:3.9-slim
 
 RUN apt-get update
-RUN apt-get install telnet netcat iputils-ping curl postgresql-client -y
+RUN apt-get install telnet netcat-traditional iputils-ping curl postgresql-client -y
 #RUN curl -fsSL https://raw.githubusercontent.com/dapr/cli/master/install/install.sh | /bin/bash
 # Define o diretório de trabalho no contêiner
 WORKDIR /app
