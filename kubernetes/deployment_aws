@@ -5,7 +5,7 @@ metadata:
   name: tcc-senai-cm
   namespace: tcc-senai
 data:
-  PROVEDOR: Azure
+  PROVEDOR: AWS
 
 ---
 # Service
