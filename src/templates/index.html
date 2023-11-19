@@ -1,15 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/mainpage.css') }}">
-    <title>Consulta de Provedor</title>
+    <link rel= "stylesheet" type= "text/css" href="{{ url_for('static',filename='styles/index.css') }}">
+    <title>TCC - UniSenai - Consulta de Provedor</title>
 </head>
 <body>
-    <h1>Resultado da Consulta</h1>
-    <ul>
-        {% for row in resultado %}
-            <li>{{ row }}</li>
-        {% endfor %}
-    </ul>
+    <div class="container">
+        <div class="column left"></div>
+        <div class="column middle">
+            <div class="block header">
+                <h1>CENTRO UNIVERSITÁRIO SENAI SANTA CATARINA<br>CAMPUS FLORIANÓPOLIS</h1>
+                <h1>SUPERIOR DE TECNOLOGIA EM ANÁLISE E DESENVOLVIMENTO DE SISTEMAS</h1>
+            </div>
+            <div class="block middle">
+                <h1>Desenvolvimento de Microsserviços Agnósticos com o Framework Dapr</h1>
+                <br>
+                <div class="resultado">
+                    <h3>Valor atribuído para variável de ambiente: "{{ provedor }}".</h3>
+                    <h3>Resultado da consulta na base de dados:</h3>
+                    <ul>
+                        {% for row in resultado %}
+                            <li>{{ row }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="block bottom">
+                <img class="img" src="{{ url_for('static',filename='images/dapr-logo.png') }}">
+                <img class="img" src="{{ url_for('static',filename='images/azure-logo.png') }}">
+                <img class="img" src="{{ url_for('static',filename='images/aws-logo.png') }}">
+                <img class="img" src="{{ url_for('static',filename='images/kubernetes-logo.png') }}">
+                <img class="img" src="{{ url_for('static',filename='images/cncf-logo.png') }}">
+                <img class="img" src="{{ url_for('static',filename='images/postgresql-logo.png') }}">
+                <img class="img" src="{{ url_for('static',filename='images/unisenai-logo.png') }}">
+                <br>
+                <br>
+                Desenvolvido por Adans Mashni.
+            </div>
+        </div>
+        <div class="column right"></div>
+    </div>
 </body>
 </html>
