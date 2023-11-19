@@ -22,8 +22,7 @@ def sql_output(provedor):
 @app.route("/")
 def home():
     meu_provedor = os.environ.get('PROVEDOR')
-    #resultado = sql_output(meu_provedor)
-    resultado = ['Microsoft']
+    resultado = sql_output(meu_provedor)
     return render_template("index.html", resultado=resultado, provedor=meu_provedor)
 
 if __name__ == "__main__":
