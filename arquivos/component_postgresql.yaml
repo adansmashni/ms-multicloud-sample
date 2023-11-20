@@ -1,0 +1,11 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: postgres-db
+  namespace: tcc-senai
+spec:
+  metadata:
+  - name: url
+    value: host=<database endpoint> port=5432 dbname=tccsenai user=psqladmin password=<password> sslmode=require
+  type: bindings.postgres
+  version: v1
