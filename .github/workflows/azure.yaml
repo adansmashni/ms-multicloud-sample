@@ -7,7 +7,7 @@ on:
       - completed
 
 jobs:
-  build:
+  azure:
     runs-on: ubuntu-latest
 
     steps:

@@ -18,6 +18,7 @@ def sql_output(provedor):
         except Exception as e:
             print(e, flush=True)
             raise SystemExit(e)
+
   
 @app.route("/")
 def home():
